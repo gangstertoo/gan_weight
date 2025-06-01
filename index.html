@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>7-Day Tamil Weight Loss Plan Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      color: #18632e;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    .tab {
+      flex: 1;
+      background: #e9f4e9;
+      padding: 12px 20px;
+      text-align: center;
+      font-weight: bold;
+      border: 2px solid #28a745;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      user-select: none;
+    }
+    .tab.active {
+      background: #28a745;
+      color: white;
+    }
+    .content {
+      background: white;
+      border: 2px solid #28a745;
+      border-radius: 0 8px 8px 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .day {
+      border-left: 5px solid #28a745;
+      margin-bottom: 25px;
+      padding-left: 15px;
+    }
+    h2 {
+      border-bottom: 2px solid #28a745;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    h3 {
+      color: #444;
+      margin-top: 15px;
+    }
+    ul {
+      margin: 5px 0 15px 20px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    label {
+      user-select: none;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .exercise {
+      background-color: #eef9f0;
+      padding: 12px;
+      border-left: 5px solid #4CAF50;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 5px;
+      height: 20px;
+      width: 100%;
+    }
+    .progress-fill {
+      background: #28a745;
+      height: 100%;
+      width: 0%;
+      transition: width 0.5s ease;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      line-height: 20px;
+      user-select: none;
+    }
+    .stats {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .reminder {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      color: #155724;
+      font-weight: bold;
+    }
+    /* Scroll for long content */
+    .content {
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h1>7-Day Tamil Weight Loss Plan Tracker</h1>
+
+<div class="reminder">
+  💧 Stay hydrated (2.5–3 liters/day) • 🛏️ Sleep 7–8 hrs/night • 💪 Increase workout intensity gradually
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="plan">Plan</div>
+  <div class="tab" data-tab="progress">Progress</div>
+</div>
+
+<div id="plan" class="content">
+  <!-- Days with checkboxes will be inserted by JS -->
+</div>
+
+<div id="progress" class="content" style="display:none;">
+  <h2>Progress Analytics</h2>
+  <div id="summary"></div>
+  <div class="stats" id="overallPercent"></div>
+</div>
+
+<script>
+  const fullPlan = [
+    {
+      day: "Day 1 – South Classic Start",
+      meals: [
+        { name: "Breakfast (~350 kcal)", items: ["2 Idlis (120g) + Sambar (150ml)", "1 Boiled Egg (50g)", "Green Tea (200ml)"] },
+        { name: "Lunch (~450 kcal)", items: ["Brown Rice (120g cooked) + Keerai Sambar (150ml)", "1 Boiled Egg (50g)", "Cabbage Poriyal (100g)"] },
+        { name: "Dinner (~400 kcal)", items: ["Moong Dal Chilla (2 small – 100g) + Tomato Chutney (50g)", "Vegetable Clear Soup (150ml)", "Keerai Stir-Fry (100g)"] },
+      ],
+      workout: "40 mins brisk walk + 3 sets of planks (30s), crunches, leg raises"
+    },
+    {
+      day: "Day 2 – Millet & Strength Day",
+      meals: [
+        { name: "Breakfast (~350 kcal)", items: ["Ragi Dosa (2 medium – 120g) + Tomato Chutney (50g)", "1 Boiled Egg (50g)", "Herbal Tea (200ml)"] },
+        { name: "Lunch (~450 kcal)", items: ["2 Chapatis (120g) + Mixed Vegetable Kurma (150g)", "Curd (low fat – 100ml)", "Beetroot-Carrot Salad (100g)"] },
+        { name: "Dinner (~400 kcal)", items: ["Thinai Pongal (120g cooked) + Bottle Gourd Kootu (100g)", "Buttermilk (150ml)"] },
+      ],
+      workout: "3 sets each of squats (15 reps), wall push-ups, glute bridges, lunges"
+    },
+    {
+      day: "Day 3 – High Protein Veg",
+      meals: [
+        { name: "Breakfast (~350 kcal)", items: ["Oats Porridge (40g oats + 150ml skim milk + 1 tsp chia seeds)", "1 Boiled Egg (50g)", "Black Coffee (100ml)"] },
+        { name: "Lunch (~450 kcal)", items: ["Varagu Rice (100g cooked) + Kollu Rasam (150ml)", "Snake Gourd Poriyal (100g)", "Curd (100ml)"] },
+        { name: "Dinner (~400 kcal)", items: ["Vegetable Upma (100g cooked)", "Steamed Greens (100g)", "Flaxseed Chutney (1 tsp)"] },
+      ],
+      workout: "Surya Namaskar ×10 rounds + yoga stretches"
+    },
+    {
+      day: "Day 4 – Fiber & Detox",
+      meals: [
+        { name: "Breakfast (~350 kcal)", items: ["Ragi Kanji (200ml, no sugar) + 5 Soaked Almonds (15g)", "Green Tea (200ml)"] },
+        { name: "Lunch (~450 kcal)", items: ["Red Rice (100g cooked) + Sundakkai Kara Kuzhambu (100ml)", "Cabbage Poriyal (100g)", "Curd (100ml)"] },
+        { name: "Dinner (~400 kcal)", items: ["Oats Chilla (2 medium – 100g) + Pudina Chutney (50g)", "Carrot Soup (150ml)"] },
+      ],
+      workout: "10 min skipping + 3 sets lunges, planks, jumping jacks"
+    },
+    {
+      day: "Day 5 – Balanced Protein Day",
+      meals: [
+        { name: "Breakfast (~350 kcal)", items: ["2 Dosas (120g) + Sambar (150ml)", "1 Boiled Egg (50g)"] },
+        { name: "Lunch (~450 kcal)", items: ["Millet Rice (100g cooked) + Paruppu Rasam (100ml)", "Beans Poriyal (100g)", "Curd (100ml)"] },
+        { name: "Dinner (~400 kcal)", items: ["Vegetable Khichdi (120g) + Cucumber Raita (100g)", "1 tsp flaxseed powder"] },
+      ],
+      workout: "Brisk walk 30 min + Surya Namaskar (5 rounds) + squats"
+    },
+    {
+      day: "Day 6 – Paneer & Low Carb Focus",
+      meals: [
+        { name: "Breakfast (~350 kcal)", items: ["Paneer Bhurji (100g) + 1 Phulka (60g)", "Green Tea (200ml)"] },
+        { name: "Lunch (~450 kcal)", items: ["Cauliflower Rice (100g) + Rajma Curry (150g)", "Stir-Fried Veggies (100g)"] },
+        { name: "Dinner (~400 kcal)", items: ["Tomato Millet Soup (150ml) + Grilled Paneer (100g)", "Spinach Stir-Fry (100g)"] },
+      ],
+      workout: "Strength: Dumbbells/bodyweight + yoga cool-down"
+    },
+    {
+      day: "Day 7 – Light Detox & Reset",
+      meals: [
+        { name: "Breakfast (~300 kcal)", items: ["Fruit Bowl (Papaya + Guava – 150g)", "Green Tea (200ml)"] },
+        { name: "Snack (~100 kcal)", items: ["Roasted Chana (30g)"] },
+        { name: "Lunch (~450 kcal)", items: ["Millet Pongal (120g) + Ridge Gourd Curry (100g)", "Curd (100ml)"] },
+        { name: "Dinner (~400 kcal)", items: ["Vegetable Soup (200ml) + Steamed Veg (100g)", "1 Boiled Egg (optional)"] },
+      ],
+      workout: "Light walk (20 mins) + deep breathing + mobility work"
+    }
+  ];
+
+  const planDiv = document.getElementById("plan");
+
+  fullPlan.forEach((day, dayIndex) => {
+    const dayEl = document.createElement("div");
+    dayEl.className = "day";
+    dayEl.innerHTML = `<h2>${day.day}</h2>`;
+
+    day.meals.forEach((meal, mealIndex) => {
+      dayEl.innerHTML += `<h3>${meal.name}</h3><ul>`;
+      meal.items.forEach((item, itemIndex) => {
+        const id = `d${dayIndex}_m${mealIndex}_i${itemIndex}`;
+        const checked = getCookie(id) === "1" ? "checked" : "";
+        dayEl.innerHTML += `<li><label><input type="checkbox" id="${id}" ${checked} onchange="saveProgress()"> ${item}</label></li>`;
+      });
+      dayEl.innerHTML += "</ul>";
+    });
+
+    const wid = `w${dayIndex}`;
+    const wchecked = getCookie(wid) === "1" ? "checked" : "";
+    dayEl.innerHTML += `<div class="exercise"><label><input type="checkbox" id="${wid}" ${wchecked} onchange="saveProgress()"> <strong>Workout:</strong> ${day.workout}</label></div>`;
+
+    planDiv.appendChild(dayEl);
+  });
+
+  function saveProgress() {
+    document.querySelectorAll('input[type=checkbox]').forEach(input => {
+      document.cookie = `${input.id}=${input.checked ? 1 : 0}; path=/; max-age=2592000`;
+    });
+    updateProgress();
+  }
+
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    return match ? match[2] : null;
+  }
+
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.querySelectorAll(".content").forEach(c => c.style.display = "none");
+      document.getElementById(tab.dataset.tab).style.display = "block";
+      if (tab.dataset.tab === "progress") updateProgress();
+    };
+  });
+
+  function updateProgress() {
+    const all = document.querySelectorAll('#plan input[type=checkbox]');
+    const completed = Array.from(all).filter(c => c.checked);
+    const percent = Math.round((completed.length / all.length) * 100);
+
+    document.getElementById("summary").innerHTML = `
+      <p>✅ Completed: ${completed.length} / ${all.length}</p>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: ${percent}%;">${percent}%</div>
+      </div>
+    `;
+
+    document.getElementById("overallPercent").innerText =
+      `You're ${percent}% through your 7-day plan. Keep going! 🎯`;
+  }
+
+  // Initialize progress on page load
+  updateProgress();
+</script>
+
+
+</body> </html>
